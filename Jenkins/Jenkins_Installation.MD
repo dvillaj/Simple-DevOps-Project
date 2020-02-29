@@ -4,14 +4,23 @@ Jenkins is a self-contained Java-based program, ready to run out-of-the-box, wit
 
 ### Prerequisites
 1. EC2 Instance 
-   - With Internet Access
-   - Security Group with Port `8080` open for internet
-1. Java v1.8.x 
+   - Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
+   - Add Tag
+      - name: Jenkins_Server
+   - Security Group
+      Security group name: DevOps_Project_SG
+      Description: DevOps Project SG
+      Add Type
+         - Port Range: 8080
+   - Create a new pair key
+      - name: DevOps_Project_SG
+      - Download Key Pair
 
 ## Install Java
 1. We will be using open java for our demo, Get the latest version from http://openjdk.java.net/install/
    ```sh
-   yum install java-1.8*
+   sudo yum remove java-1.7.0*
+   sudo yum install java-1.8*
    #yum -y install java-1.8.0-openjdk-devel
    ```
 
@@ -37,25 +46,25 @@ Jenkins is a self-contained Java-based program, ready to run out-of-the-box, wit
  You can install jenkins using the rpm or by setting up the repo. We will set up the repo so that we can update it easily in the future.
 1. Get the latest version of jenkins from https://pkg.jenkins.io/redhat-stable/ and install
    ```sh
-   yum -y install wget
-   sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+   sudo yum -y install wget
+   wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-   yum -y install jenkins
+   sudo yum -y install jenkins
    ```
 
    ### Start Jenkins
    ```sh
    # Start jenkins service
-   service jenkins start
+   sudo service jenkins start
 
    # Setup Jenkins to start at boot,
-   chkconfig jenkins on
+   sudo chkconfig jenkins on
    ```
 
    ### Accessing Jenkins
    By default jenkins runs at port `8080`, You can access jenkins at
    ```sh
-   http://YOUR-SERVER-PUBLIC-IP:8080
+   http://ec2-3-135-238-168.us-east-2.compute.amazonaws.com:8080
    ```
   #### Configure Jenkins
 - The default Username is `admin`
