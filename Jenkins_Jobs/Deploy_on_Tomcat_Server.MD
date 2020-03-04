@@ -17,6 +17,8 @@
 
 - setup credentials
   - `credentials` > `jenkins` > `Global credentials` > `add credentials`
+    - Kind: Username with password
+    - Scope: Global
     - Username	: `deployer`
     - Password : `deployer`
     - id      :  `deployer`
@@ -28,9 +30,9 @@
      - Copy from: `My_First_Maven_Build`
      
    - *Source Code Management:*
-      - Repository: `https://github.com/yankils/hello-world.git`
+      - Repository: `https://github.com/dvillaj/hello-world-jenkins.git`
       - Branches to build : `*/master`  
-   - *Poll SCM* :      - `* * * *`
+   - *Poll SCM* :      - `* * * * *`
 
    - *Build:*
      - Root POM:`pom.xml`
