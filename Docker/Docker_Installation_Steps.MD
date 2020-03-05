@@ -6,30 +6,38 @@
 ## Installation Steps
 
 1. Install docker and start docker services
-   ```sh 
-   sudo yum install docker -y
-   docker --version 
-   
-   # start docker services
-   sudo service docker start
-   sudo service docker status
-   ```
+```sh 
+sudo yum install docker -y
+docker --version 
+
+# start docker services
+sudo service docker start
+sudo service docker status
+```
 1. Create a user called dockeradmin
-   ```sh
-   sudo useradd dockeradmin
-   sudo passwd dockeradmin
-   ```
+```sh
+sudo useradd dockeradmin
+sudo passwd dockeradmin
+```
 1. add a user to docker group to manage docker 
-   ```
-   sudo usermod -aG docker dockeradmin
-   ```
+```
+sudo usermod -aG docker dockeradmin
+```
 ### Validation test
 1. Create a tomcat docker container by pulling a docker image from the public docker registry
-   ```sh
-   su dockeradmin
+```sh
+su dockeradmin
 
-   docker run -d --name test-tomcat-server -p 9090:8080 tomcat:latest
-   ```
+docker run -d --name test-tomcat-server -p 9090:8080 tomcat:latest
+```
+
+### Allow password authentification with SSH
+
+```sh 
+# sed command replaces "PasswordAuthentication no to yes" without editing file 
+sudo sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo service sshd reload
+``` 
 
 ## Docker Installation on CentOS server
 ##### Referance URL : https://docs.docker.com/install/linux/docker-ce/centos/#install-using-the-repository

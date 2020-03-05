@@ -6,14 +6,15 @@
 1. Jenkins server 
 1. Docker-host server 
 1. `Dockerfile` under *`/home/dockeradmin`* in user home directory on docker host 
-   ```sh 
-   # Pull tomcat latest image from dockerhub 
-   From tomcat
-   # Maintainer
-   MAINTAINER "AR Shankar" 
+```sh 
+# Pull base image
+From tomcat:8-jre8
 
-   # copy war file on to container 
-   COPY ./webapp.war /usr/local/tomcat/webapps
+# Maintainer
+MAINTAINER "dvillaj@gmail.com"
+COPY ./webapp.war /usr/local/tomcat/webapps
+```
+
 ### Integration between Docker-host and Jenkins
 
 Install "publish Over SSH"
@@ -24,7 +25,7 @@ Enable connection between Docker-host and Jenkins
 - `Manage Jenkins` > `Configure System` > `Publish Over SSH` > `SSH Servers` 
 
 	- SSH Servers:
-                - Name: `docker-host`
+    - Name: `docker-host`
 		- Hostname:`<ServerIP>`
 		- username: `dockeradmin`
                
@@ -37,7 +38,7 @@ Enable connection between Docker-host and Jenkins
      - Copy from: `Deploy_on_Docker_Host`
      
    - *Source Code Management:*
-      - Repository: `https://github.com/yankils/hello-world.git`
+      - Repository: `https://github.com/dvillaj/hello-world-jenkins.git`
       - Branches to build : `*/master`  
    - *Poll SCM* :      - `* * * *`
 
@@ -54,10 +55,10 @@ Enable connection between Docker-host and Jenkins
 	       - Remove prefix: `webapp/target`
 	       - Remote directory: `//home//ansadmin` or `.`
 	       - Exec command: 
-                ```sh 
-                cd /home/dockeradmin;
-                docker build -t simple-devops-image .; 
-                docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image;
-                ```
+```sh 
+cd /home/dockeradmin;
+docker build -t simple-devops-image .; 
+docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image;
+```
 
 Save and run the job now.
