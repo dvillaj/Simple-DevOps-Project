@@ -16,12 +16,15 @@ Enable connection between Docker-host and Jenkins
 - `Manage Jenkins` > `Configure System` > `Publish Over SSH` > `SSH Servers` 
 
 	- SSH Servers:
-                - Name: `docker-host`
-		- Hostname:`<ServerIP>`
+    - Name: `docker-host`
+		- Hostname:`172.31.25.111`
 		- username: `dockeradmin`
                
-       -  `Advanced` > chose `Use password authentication, or use a different key`
-		 - password: `*******`
+    - `Advanced` > chose `Use password authentication, or use a different key`
+		- password: `*******`
+
+
+  For IP: `ip addr show eth0 | grep "scope global"`
  
 ### Steps to create "Deploy_on_Docker_Host" Jenkin job
  #### From Jenkins home page select "New Item"
